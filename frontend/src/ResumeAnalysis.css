@@ -1,0 +1,131 @@
+.resume-page {
+  min-height: 100vh;
+  background: #020617;
+  color: white;
+  padding: 40px;
+}
+
+.back-btn {
+  background: #4ade80;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.back-btn:hover {
+  opacity: 0.9;
+}
+
+.upload-card {
+  background: #0f172a;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+}
+
+.analysis-card {
+  background: #0f172a;
+  padding: 30px;
+  border-radius: 15px;
+}
+
+.ats-score {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.ats-score h2 {
+  margin-bottom: 10px;
+}
+
+.ats-score h1 {
+  color: #4ade80;
+  font-size: 70px;
+  font-weight: bold;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.section h2 {
+  margin-bottom: 15px;
+}
+
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-badge {
+  background: #4ade80;
+  color: black;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.section ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.section li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.loading-card {
+  text-align: center;
+  padding: 60px;
+}
+
+.loading-card h2 {
+  color: #4ade80;
+  margin-bottom: 20px;
+}
+
+.loading-card p {
+  color: #cbd5e1;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.loader {
+  width: 80px;
+  height: 80px;
+  border: 6px solid #1e293b;
+  border-top: 6px solid #4ade80;
+  border-radius: 50%;
+  margin: auto;
+  margin-bottom: 25px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .resume-page {
+    padding: 20px;
+  }
+
+  .ats-score h1 {
+    font-size: 55px;
+  }
+
+}
