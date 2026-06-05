@@ -74,7 +74,7 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
     startCamera();
     fetchHistory();
 
-    socketRef.current = new WebSocket("ws://ai-interview-platform-6ftz.onrender.com/ws/video");
+    socketRef.current = new WebSocket("wss://ai-interview-platform-6ftz.onrender.com/ws/video");
 
 socketRef.current.onopen = () => {
   console.log("WebSocket Connected");
