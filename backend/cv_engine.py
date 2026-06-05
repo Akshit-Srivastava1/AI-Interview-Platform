@@ -39,6 +39,7 @@ def smooth_change(current_value, target_value):
 
     return max(0, min(100, current_value))
 
+
 def analyze_face(frame):
 
     global last_emotion
@@ -48,7 +49,15 @@ def analyze_face(frame):
     global current_confidence
     global current_engagement
     global current_speech
-
+    if face_mesh is None:
+        return {
+            "eye_contact": current_eye_contact,
+            "confidence": current_confidence,
+            "engagement": current_engagement,
+            "speech": current_speech,
+            "emotion": last_emotion
+        }
+    
     rgb_frame = cv2.cvtColor(
         frame,
         cv2.COLOR_BGR2RGB

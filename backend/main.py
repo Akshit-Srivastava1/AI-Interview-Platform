@@ -440,7 +440,7 @@ async def parse_resume(
         except Exception:
             result = {
                 "ats_score": 70,
-                "skills": skills,
+                "skills": [],
                 "strengths": ["Resume parsed successfully"],
                 "improvements": ["AI ATS parser could not generate detailed feedback"]
             }
