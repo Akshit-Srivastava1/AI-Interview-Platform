@@ -36,7 +36,7 @@ function Chatbot() {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://ai-interview-platform-6ftz.onrender.com/interview-history/chat",
+        "https://ai-interview-platform-6ftz.onrender.com/chat",
         {
           method: "POST",
 
