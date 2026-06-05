@@ -74,7 +74,7 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
     startCamera();
     fetchHistory();
 
-    socketRef.current = new WebSocket("ws:https://ai-interview-platform-6ftz.onrender.com/ws/video");
+    socketRef.current = new WebSocket("ws://ai-interview-platform-6ftz.onrender.com/ws/video");
 
 socketRef.current.onopen = () => {
   console.log("WebSocket Connected");
@@ -238,7 +238,7 @@ socketRef.current.onerror = (error) => {
   const downloadReport = () => {
     const email = sessionStorage.getItem('userEmail');
     window.open(
-      `http://localhost:8000/generate-report/${email}`, '_blank'
+      `https://ai-interview-platform-6ftz.onrender.com/generate-report/${email}`, '_blank'
     );
   };
 
