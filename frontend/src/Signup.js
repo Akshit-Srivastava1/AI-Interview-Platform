@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import './Signup.css';
 
@@ -32,22 +33,38 @@ function Signup({ setIsLogin }) {
       !formData.password ||
       !formData.confirmPassword
     ) {
-      alert("Please fill all fields");
+      Swal.fire({
+      icon: 'warning',
+      title: 'Missing Information',
+      text: 'Please fill all fields'
+      });
       return;
     }
 
     if (formData.phone.length < 10) {
-      alert("Invalid phone number");
+      Swal.fire({
+      icon: 'error',
+      title: 'Invalid Phone Number',
+      text: 'Please enter a valid phone number'
+      });
       return;
     }
 
     if (formData.password.length < 6) {
-      alert("Password should be at least 6 characters");
+      Swal.fire({
+      icon: 'warning',
+      title: 'Weak Password',
+      text: 'Password should be at least 6 characters'
+      });
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
+      Swal.fire({
+      icon: 'error',
+      title: 'Password Mismatch',
+      text: 'Passwords do not match'
+      });
       return;
     }
 
@@ -58,15 +75,21 @@ function Signup({ setIsLogin }) {
         formData
       );
 
-      alert(`Verification OTP sent to your ${formData.verificationMethod}`);
+      Swal.fire({
+      icon: 'success',
+      title: 'OTP Sent',
+      text: `Verification OTP sent to your ${formData.verificationMethod}`,
+      confirmButtonText: 'Continue'
+      });
       setIsLogin(true);
 
     } catch (err) {
     console.log(err);
-  alert(
-    err.response?.data?.error ||
-    "Signup failed"
-    );
+  Swal.fire({
+  icon: 'error',
+  title: 'Signup Failed',
+  text: err.response?.data?.error || 'Signup failed'
+  });
     }finally {
       setLoading(false);
     }
