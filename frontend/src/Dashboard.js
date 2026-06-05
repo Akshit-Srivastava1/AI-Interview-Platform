@@ -74,25 +74,25 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
     startCamera();
     fetchHistory();
 
-//     socketRef.current = new WebSocket("wss://ai-interview-platform-6ftz.onrender.com/ws/video");
+    socketRef.current = new WebSocket("wss://ai-interview-platform-6ftz.onrender.com/ws/video");
 
-// socketRef.current.onopen = () => {
-//   console.log("WebSocket Connected");
-// };
+    socketRef.current.onopen = () => {
+      console.log("WebSocket Connected");
+    };
 
-// socketRef.current.onerror = (error) => {
-//   console.log("WebSocket Error:", error);
-// };
+    socketRef.current.onerror = (error) => {
+      console.log("WebSocket Error:", error);
+    };
 
-//     socketRef.current.onmessage = async (event) => {
-//       const data = JSON.parse(event.data);
-//       setAnalysis({
-//         eye_contact: data.eye_contact,
-//         confidence: data.confidence,
-//         engagement: data.engagement,
-//         speech: data.speech,
-//         emotion: data.emotion
-//       });
+    socketRef.current.onmessage = async (event) => {
+      const data = JSON.parse(event.data);
+      setAnalysis({
+        eye_contact: data.eye_contact,
+        confidence: data.confidence,
+        engagement: data.engagement,
+        speech: data.speech,
+        emotion: data.emotion
+      });
 
       // AUTO SAVE INTERVIEW
 
