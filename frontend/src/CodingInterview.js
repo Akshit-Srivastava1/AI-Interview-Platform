@@ -30,6 +30,7 @@ solve()
       );
 
       const data = await res.json();
+      console.log("Coding Question API:", data);
       setQuestion(data);
 
     } catch (err) {
