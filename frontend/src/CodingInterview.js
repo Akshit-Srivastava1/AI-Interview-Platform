@@ -26,7 +26,7 @@ solve()
 
     try {
       const res = await fetch(
-        "`https://ai-interview-platform-6ftz.onrender.com/interview-history/coding-question"
+        "https://ai-interview-platform-6ftz.onrender.com/interview-history/coding-question"
       );
 
       const data = await res.json();
@@ -40,7 +40,7 @@ solve()
   const runCode = async () => {
     try {
       const res = await fetch(
-        "`https://ai-interview-platform-6ftz.onrender.com/interview-history/run-code",
+        "https://ai-interview-platform-6ftz.onrender.com/interview-history/run-code",
         {
           method: "POST",
 
@@ -71,7 +71,7 @@ solve()
   const reviewCode = async () => {
     try {
       const res = await fetch(
-        "`https://ai-interview-platform-6ftz.onrender.com/interview-history/review-code",
+        "https://ai-interview-platform-6ftz.onrender.com/interview-history/review-code",
         {
           method: "POST",
 
