@@ -792,9 +792,7 @@ def run_code(
             delete=False,
             suffix=".py"
         ) as temp:
-            temp.write(
-                request.code.encode()
-            )
+            temp.write(request.code.encode())
 
             temp_path = temp.name
         result = subprocess.run(
@@ -817,20 +815,21 @@ def run_code(
         }
         
 @app.post("/review-code")
-def review_code(
-    request: ReviewRequest
-):
+def review_code(request: ReviewRequest):
 
     code = request.code.strip()
 
-    # EMPTY CODE
+    # EMPTY OR TEMPLATE CODE
 
     if (
         len(code) == 0
         or code == "# Write your solution here"
-        or "pass" in code
+        or (
+            "def solve():" in code
+            and "pass" in code
+            and len(code.splitlines()) <= 5
+        )
     ):
-
         return {
             "score": 0,
             "complexity": "N/A",
@@ -840,7 +839,6 @@ def review_code(
                 "Remove placeholder code"
             ]
         }
-
     feedback = []
     score = 50
 
