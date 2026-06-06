@@ -38,6 +38,7 @@ import base64
 import subprocess
 import google.generativeai as genai
 import json
+import random
 
 from auth import *
 from datetime import datetime
@@ -91,6 +92,9 @@ class User(BaseModel):
     confirmPassword: str = ""
     verificationMethod: str = ""
 
+class MockInterviewRequest(BaseModel):
+    answer: str
+    
 class CodeRequest(BaseModel):
     language: str
     code: str
@@ -817,78 +821,72 @@ def run_code(
 @app.post("/review-code")
 def review_code(request: ReviewRequest):
 
-    code = request.code.strip()
+    try:
 
-    # EMPTY OR TEMPLATE CODE
+        prompt = f"""
+        You are a Senior Software Engineer conducting a coding interview.
 
-    if (
-        len(code) == 0
-        or code == "# Write your solution here"
-        or (
-            "def solve():" in code
-            and "pass" in code
-            and len(code.splitlines()) <= 5
-        )
-    ):
+        Coding Question:
+        Given an array of integers nums and an integer target,
+        return indices of two numbers that add up to target.
+
+        Candidate Code:
+        {request.code}
+
+        Evaluate:
+
+        1. Correctness (0-40)
+        2. Code Quality (0-20)
+        3. Time Complexity (0-20)
+        4. Best Practices (0-20)
+
+        Return ONLY valid JSON:
+
+        {{
+          "score": 85,
+          "complexity": "O(n)",
+          "feedback": [
+            "Uses hash map efficiently",
+            "Good code structure",
+            "Handles edge cases"
+          ]
+        }}
+        """
+
+        response = model.generate_content(prompt)
+
+        text = response.text.strip()
+
+        text = text.replace("```json", "")
+        text = text.replace("```", "")
+
+        try:
+            result = json.loads(text)
+
+            return {
+                "score": result.get("score", 70),
+                "complexity": result.get("complexity", "Unknown"),
+                "feedback": result.get("feedback", [])
+            }
+
+        except Exception:
+
+            return {
+                "score": 70,
+                "complexity": "Unknown",
+                "feedback": [
+                    "AI evaluation completed",
+                    "Unable to parse detailed feedback"
+                ]
+            }
+
+    except Exception as e:
+
         return {
             "score": 0,
             "complexity": "N/A",
-            "feedback": [
-                "No valid solution submitted",
-                "Write a complete solution",
-                "Remove placeholder code"
-            ]
+            "feedback": [str(e)]
         }
-    feedback = []
-    score = 50
-
-    # FUNCTION PRESENT
-
-    if "def " in code:
-        score += 10
-        feedback.append( "Function definition found")
-
-    # LOOP PRESENT
-
-    if ("for " in code or "while " in code):
-        score += 10
-        feedback.append("Uses iteration")
-
-    # HASHMAP PRESENT
-
-    if "{}" in code or "dict(" in code:
-        score += 10
-        feedback.append("Uses hash map optimization")
-
-    # RETURN PRESENT
-
-    if "return" in code:
-        score += 10
-        feedback.append("Returns result correctly")
-
-    # LONGER CODE = MORE COMPLETE
-
-    if len(code) > 150:
-        score += 10
-        feedback.append("Solution appears complete")
-
-    score = min(score, 100)
-    complexity = "Unknown"
-
-    if (
-        "{}" in code
-        or "dict(" in code
-    ):
-        complexity = "O(n)"
-
-    elif "for " in code:
-        complexity = "O(n²)"
-
-    return {
-        "score": score,
-        "complexity": complexity,
-        "feedback": feedback
-    }
 
 @app.post("/generate-hr-feedback")
 def generate_hr_feedback(data: dict):
@@ -979,17 +977,68 @@ def chat(request: ChatRequest):
 @app.get("/mock-question")
 def mock_question():
 
+    topics = [
+        "HR",
+        "Behavioral",
+        "Projects",
+        "OOPs",
+        "DBMS",
+        "Operating Systems",
+        "Networking",
+        "AI/ML"
+    ]
+
+    topic = random.choice(topics)
+
+    prompt = f"""
+    Generate ONE interview question for a fresher Software Engineer.
+
+    Topic: {topic}
+
+    Return ONLY the question.
+    """
+
+    response = model.generate_content(prompt)
+
     return {
-        "question":
-            "Tell me about yourself and why you want to join our company."
+        "question": response.text.strip()
     }
 
 @app.post("/mock-feedback")
-def mock_feedback(request: dict):
+def mock_feedback(request: MockInterviewRequest):
+
+    prompt = f"""
+    You are an experienced HR interviewer.
+
+    Candidate Answer:
+    {request.answer}
+
+    Evaluate the answer and provide:
+
+    Score: X/10
+
+    Strengths:
+    - point 1
+    - point 2
+
+    Weaknesses:
+    - point 1
+    - point 2
+
+    Suggestions:
+    - point 1
+    - point 2
+
+    Improved Answer:
+    Write a better version of the candidate's answer.
+
+    Keep the response concise and professional.
+    """
+
+    response = model.generate_content(prompt)
 
     return {
-        "feedback":
-        "Good structure. Try to quantify achievements, speak confidently, and connect your skills with the company's requirements."
+        "feedback": response.text
     }
     
 # REAL-TIME WEBSOCKET VIDEO ANALYSIS
