@@ -3,44 +3,50 @@ import "./AIFeedback.css";
 
 function AIFeedback({ setCurrentPage }) {
   const [feedback, setFeedback] = useState([]);
-  useEffect(() => {
-    fetch(
-      `https://ai-interview-platform-6ftz.onrender.com/interview-history/${
-        sessionStorage.getItem("UserEmail")
-      }`
-    )
-      .then(res => res.json())
-      .then(data => {
-        setFeedback(data);
-      })
-      .catch(err => console.log(err));
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const loadFeedback = async () => {
+      try {
+        const email = sessionStorage.getItem("UserEmail");
+        const response = await fetch(
+          `https://ai-interview-platform-6ftz.onrender.com/interview-history/${email}`
+        );
+
+        const data = await response.json();
+
+        setFeedback(data);
+      } catch (error) {
+        console.log("Feedback Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadFeedback();
   }, []);
+
   return (
     <div className="feedback-page">
-
       <button className="back-btn" onClick={() => setCurrentPage("dashboard")}>
         ← Dashboard
       </button>
 
       <h1>🤖 AI Feedback</h1>
 
-      <div className="feedback-container">
-        {
-          feedback.length === 0 ? (
-
+      {loading ? (
+        <div className="empty-card">Loading feedback...</div>
+      ) : (
+        <div className="feedback-container">
+          {feedback.length === 0 ? (
             <div className="empty-card">
               No feedback available yet.
             </div>
           ) : (
             feedback.map((item, index) => (
               <div key={index} className="feedback-card">
-                <h3>
-                  Interview #{index + 1}
-                </h3>
-
+                <h3>Interview #{index + 1}</h3>
                 <div className="score-grid">
-
                   <div className="score-box">
                     <span>Confidence</span>
                     <h2>{item.confidence}%</h2>
@@ -60,22 +66,20 @@ function AIFeedback({ setCurrentPage }) {
                     <span>Speech</span>
                     <h2>{item.speech}%</h2>
                   </div>
-
                 </div>
 
                 <div className="feedback-text">
                   <h4>AI Suggestions</h4>
 
                   <p>
-                    {item.feedback}
+                    {item.feedback || "No AI feedback generated for this interview."}
                   </p>
-
                 </div>
               </div>
             ))
-          )
-        }
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
