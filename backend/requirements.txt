@@ -1,8 +1,8 @@
 fastapi
 uvicorn[standard]
 
-opencv-python-headless
-mediapipe==0.10.35
+# opencv-python-headless
+mediapipe==0.10.14
 numpy
 
 python-multipart
@@ -24,4 +24,4 @@ python-docx
 openai
 python-dotenv
 google-generativeai
-tf-keras
+# tf-keras

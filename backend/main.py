@@ -1070,7 +1070,7 @@ async def websocket_video(
             frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
             analysis = analyze_face(frame)
-
+            print("ANALYSIS:", analysis)
             await websocket.send_json({
                 "eye_contact": analysis["eye_contact"],
                 "confidence": analysis["confidence"],

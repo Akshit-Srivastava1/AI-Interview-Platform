@@ -85,6 +85,7 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
 
     socketRef.current.onmessage = async (event) => {
       const data = JSON.parse(event.data);
+      console.log("LIVE DATA:", data);
       setAnalysis({
         eye_contact: data.eye_contact,
         confidence: data.confidence,
