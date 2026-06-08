@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker
 import os
 
 DATABASE_URL = os.getenv("DATABASE_URL")
+print("DATABASE_URL FOUND:", DATABASE_URL is not None)
 engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(
