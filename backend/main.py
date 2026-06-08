@@ -690,9 +690,7 @@ def generate_report(
     )
 
     elements.append(feedback_title)
-
     elements.append(Spacer(1, 10))
-
     feedback = Paragraph(
         f"""
         <font size=12>
@@ -703,9 +701,7 @@ def generate_report(
     )
 
     elements.append(feedback)
-
     elements.append(Spacer(1, 25))
-
     summary_title = Paragraph(
         """
         <font size=18>
@@ -1008,12 +1004,17 @@ def mock_question():
 def mock_feedback(request: MockInterviewRequest):
 
     prompt = f"""
-    You are an experienced HR interviewer.
+    You are a senior interviewer.
 
-    Candidate Answer:
+    Evaluate this answer.
+
+    Question:
+    {request.question}
+
+    Answer:
     {request.answer}
 
-    Evaluate the answer and provide:
+    Format exactly like:
 
     Score: X/10
 
@@ -1030,9 +1031,7 @@ def mock_feedback(request: MockInterviewRequest):
     - point 2
 
     Improved Answer:
-    Write a better version of the candidate's answer.
-
-    Keep the response concise and professional.
+    ...
     """
 
     response = model.generate_content(prompt)

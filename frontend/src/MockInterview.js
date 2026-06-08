@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./MockInterview.css";
+import ReactMarkdown from "react-markdown";
 
 function MockInterview({ setCurrentPage }) {
   const [question, setQuestion] = useState("");
@@ -92,9 +93,9 @@ function MockInterview({ setCurrentPage }) {
               AI Feedback
             </h2>
 
-            <p>
+            <ReactMarkdown>
               {feedback}
-            </p>
+            </ReactMarkdown>
           </div>
         )
       }
