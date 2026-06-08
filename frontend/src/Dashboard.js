@@ -46,7 +46,6 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
     confidence: 0,
     engagement: 0,
     speech: 0,
-    emotion: "neutral"
   });
 
   const generateHRFeedback = async () => {
@@ -91,7 +90,6 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
         confidence: data.confidence,
         engagement: data.engagement,
         speech: data.speech,
-        emotion: data.emotion
       });
 
       // AUTO SAVE INTERVIEW
@@ -184,7 +182,6 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
             eye_contact: data.eye_contact,
             engagement: data.engagement,
             speech: data.speech,
-            emotion: data.emotion,
             feedback:
               "Live AI interview analysis"
           })
@@ -205,7 +202,6 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
       eye_contact: analysis.eye_contact,
       engagement: analysis.engagement,
       speech: analysis.speech,
-      emotion: analysis.emotion
     });
     await fetchHistory();
     alert("Interview Saved");
@@ -374,10 +370,6 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
                       Speech: {item.speech}%
                     </p>
 
-                    <p>
-                      Emotion: {item.emotion}
-                    </p>
-
                   </div>
                 ))
               }
@@ -440,17 +432,6 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
 
               <h1>
                 {analysis.speech}%
-              </h1>
-
-            </div>
-
-            <div className="card">
-              <h2>
-                Emotion
-              </h2>
-
-              <h1>
-                {analysis.emotion}
               </h1>
 
             </div>
