@@ -1,10 +1,31 @@
+# from sqlalchemy import create_engine
+# from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.orm import sessionmaker
+# import os
+
+# DATABASE_URL = os.getenv("DATABASE_URL")
+# print("DATABASE_URL FOUND:", DATABASE_URL is not None)
+# engine = create_engine(DATABASE_URL)
+
+# SessionLocal = sessionmaker(
+#     autocommit=False,
+#     autoflush=False,
+#     bind=engine
+# )
+
+# Base = declarative_base()
+
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 
 DATABASE_URL = os.getenv("DATABASE_URL")
-print("DATABASE_URL FOUND:", DATABASE_URL is not None)
+
+print("DATABASE_URL =", DATABASE_URL)
+
+if not DATABASE_URL:
+    raise Exception("DATABASE_URL NOT FOUND")
+
 engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(
