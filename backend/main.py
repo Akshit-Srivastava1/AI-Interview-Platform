@@ -93,6 +93,7 @@ class User(BaseModel):
     verificationMethod: str = ""
 
 class MockInterviewRequest(BaseModel):
+    question: str
     answer: str
     
 class CodeRequest(BaseModel):
