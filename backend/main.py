@@ -1002,43 +1002,30 @@ def mock_question():
 
 @app.post("/mock-feedback")
 def mock_feedback(request: MockInterviewRequest):
+    try:
 
-    prompt = f"""
-    You are a senior interviewer.
+        prompt = f"""
+        You are a senior interviewer.
 
-    Evaluate this answer.
+        Question:
+        {request.question}
 
-    Question:
-    {request.question}
+        Answer:
+        {request.answer}
+        """
 
-    Answer:
-    {request.answer}
+        response = model.generate_content(prompt)
 
-    Format exactly like:
+        return {
+            "feedback": response.text
+        }
 
-    Score: X/10
+    except Exception as e:
+        print("MOCK FEEDBACK ERROR:", str(e))
 
-    Strengths:
-    - point 1
-    - point 2
-
-    Weaknesses:
-    - point 1
-    - point 2
-
-    Suggestions:
-    - point 1
-    - point 2
-
-    Improved Answer:
-    ...
-    """
-
-    response = model.generate_content(prompt)
-
-    return {
-        "feedback": response.text
-    }
+        return {
+            "feedback": f"ERROR: {str(e)}"
+        }
     
 # REAL-TIME WEBSOCKET VIDEO ANALYSIS
 
