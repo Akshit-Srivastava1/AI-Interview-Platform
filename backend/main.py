@@ -1006,13 +1006,36 @@ def mock_feedback(request: MockInterviewRequest):
     try:
 
         prompt = f"""
-        You are a senior interviewer.
+        You are a senior technical interviewer.
 
-        Question:
+        Interview Question:
         {request.question}
 
-        Answer:
+        Candidate Answer:
         {request.answer}
+
+        Your task is to REVIEW the candidate's answer.
+
+        Do NOT answer the interview question yourself.
+
+        Evaluate the candidate's response and return ONLY in this format:
+
+        Score: X/10
+
+        Strengths:
+        - point 1
+        - point 2
+
+        Weaknesses:
+        - point 1
+        - point 2
+
+        Suggestions:
+        - point 1
+        - point 2
+
+        Improved Answer:
+        (write a better version of the candidate's answer)
         """
 
         response = model.generate_content(prompt)
