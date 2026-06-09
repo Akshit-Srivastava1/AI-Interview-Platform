@@ -1090,26 +1090,34 @@ async def websocket_video(
 @app.post("/generate-ai-feedback")
 async def generate_ai_feedback(data: InterviewData):
 
-    prompt = f"""
-    You are an expert interview coach.
+    try:
+        prompt = f"""
+        You are an expert interview coach.
 
-    Candidate Performance:
-    Confidence: {data.confidence}%
-    Eye Contact: {data.eye_contact}%
-    Engagement: {data.engagement}%
-    Speech: {data.speech}%
+        Candidate Performance:
+        Confidence: {data.confidence}%
+        Eye Contact: {data.eye_contact}%
+        Engagement: {data.engagement}%
+        Speech: {data.speech}%
 
-    Give:
-    - Overall Assessment
-    - Strengths
-    - Weaknesses
-    - 3 Improvement Suggestions
+        Give:
+        - Overall Assessment
+        - Strengths
+        - Weaknesses
+        - 3 Improvement Suggestions
 
-    Keep it under 150 words.
-    """
+        Keep it under 150 words.
+        """
 
-    response = model.generate_content(prompt)
+        response = model.generate_content(prompt)
 
-    return {
-        "feedback": response.text
-    }
+        return {
+            "feedback": response.text
+        }
+
+    except Exception as e:
+        print("AI FEEDBACK ERROR:", str(e))
+
+        return {
+            "feedback": f"ERROR: {str(e)}"
+        }
