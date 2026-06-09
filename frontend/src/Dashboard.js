@@ -183,8 +183,7 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
             eye_contact: data.eye_contact,
             engagement: data.engagement,
             speech: data.speech,
-            feedback:
-              "Live AI interview analysis"
+            feedback: data.feedback
           })
         }
       );
@@ -198,15 +197,38 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
 
   const endInterview = async () => {
     if(saved) return;
-    await saveInterview({
-      confidence: analysis.confidence,
-      eye_contact: analysis.eye_contact,
-      engagement: analysis.engagement,
-      speech: analysis.speech,
-    });
-    await fetchHistory();
-    alert("Interview Saved");
-  };
+
+  // Generate AI feedback first
+    const aiResponse = await fetch(
+      "https://ai-interview-platform-production-9ae2.up.railway.app/generate-ai-feedback",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+        confidence: analysis.confidence,
+        eye_contact: analysis.eye_contact,
+        engagement: analysis.engagement,
+        speech: analysis.speech
+      })
+    }
+  );
+
+  const aiData = await aiResponse.json();
+
+  // Save interview with AI feedback
+  await saveInterview({
+    confidence: analysis.confidence,
+    eye_contact: analysis.eye_contact,
+    engagement: analysis.engagement,
+    speech: analysis.speech,
+    feedback: aiData.feedback
+  });
+
+  await fetchHistory();
+  alert("Interview Saved");
+};
 
   // FETCH HISTORY
 

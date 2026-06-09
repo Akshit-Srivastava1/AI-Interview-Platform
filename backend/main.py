@@ -105,7 +105,12 @@ class ReviewRequest(BaseModel):
 
 class ChatRequest(BaseModel):
     message: str
-    
+
+class InterviewData(BaseModel):
+    confidence: int
+    eye_contact: int
+    engagement: int
+    speech: int
 # CORS
 
 app.add_middleware(
@@ -1081,3 +1086,30 @@ async def websocket_video(
         except Exception as e:
             print("WebSocket Error:", e)
             break
+        
+@app.post("/generate-ai-feedback")
+async def generate_ai_feedback(data: InterviewData):
+
+    prompt = f"""
+    You are an expert interview coach.
+
+    Candidate Performance:
+    Confidence: {data.confidence}%
+    Eye Contact: {data.eye_contact}%
+    Engagement: {data.engagement}%
+    Speech: {data.speech}%
+
+    Give:
+    - Overall Assessment
+    - Strengths
+    - Weaknesses
+    - 3 Improvement Suggestions
+
+    Keep it under 150 words.
+    """
+
+    response = model.generate_content(prompt)
+
+    return {
+        "feedback": response.text
+    }
