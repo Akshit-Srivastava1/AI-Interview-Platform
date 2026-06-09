@@ -25,3 +25,4 @@ openai
 python-dotenv
 google-generativeai
 # tf-keras
+pytz

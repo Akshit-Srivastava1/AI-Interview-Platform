@@ -2,7 +2,9 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy import DateTime
 from datetime import datetime
 from database import Base
+import pytz
 
+india = pytz.timezone("Asia/Kolkata")
 # USER TABLE
 
 class UserDB(Base):
@@ -42,11 +44,7 @@ class InterviewHistory(Base):
     engagement = Column(Integer)
     speech = Column(Integer)
     feedback = Column(String)
-    created_at = Column(
-        DateTime,
-        default=datetime.utcnow
-    )
-
+    created_at = Column(DateTime, default=lambda: datetime.now(india))
 
 # CODING HISTORY TABLE
 
@@ -62,7 +60,4 @@ class CodingHistory(Base):
     question = Column(String)
     score = Column(Integer)
     feedback = Column(String)
-    created_at = Column(
-        DateTime,
-        default=datetime.utcnow
-    )
+    created_at = Column(DateTime, default=lambda: datetime.now(india))
