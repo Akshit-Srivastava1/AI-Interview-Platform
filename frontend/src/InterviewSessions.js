@@ -41,8 +41,9 @@ function InterviewSessions({ setCurrentPage }) {
                 </h3>
 
                 <p>
-                  <strong>Date:</strong>{" "}
-                    {session.created_at ? new Date(session.created_at).toLocaleDateString(): "N/A"}
+                  <strong>Date:</strong>{" "} {session.created_at ? new Date(session.created_at).toLocaleString("en-GB", {
+                    timeZone: "Asia/Kolkata",
+                  }) : "N/A"}
                 </p>
 
                 <p>
