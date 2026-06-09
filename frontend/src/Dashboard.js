@@ -283,10 +283,6 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
           AI Interview Coach
         </h1>
 
-        <div className="menu-item" onClick={() => setCurrentPage("dashboard")}>
-          Dashboard
-        </div>
-
         <div className="menu-item" onClick={() => setCurrentPage("profile")}>
           Profile
         </div>
