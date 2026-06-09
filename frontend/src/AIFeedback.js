@@ -8,12 +8,15 @@ function AIFeedback({ setCurrentPage }) {
   useEffect(() => {
     const loadFeedback = async () => {
       try {
-        const email = sessionStorage.getItem("UserEmail");
+        const email = sessionStorage.getItem("userEmail");
+        console.log("EMAIL:", email);
         const response = await fetch(
           `https://ai-interview-platform-production-9ae2.up.railway.app/interview-history/${email}`
         );
-
+        
+        console.log("STATUS:", response.status);
         const data = await response.json();
+        console.log("DATA:", data);
 
         setFeedback(data);
       } catch (error) {
