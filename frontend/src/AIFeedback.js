@@ -66,7 +66,7 @@ function AIFeedback({ setCurrentPage }) {
                   </div>
 
                   <div className="score-box">
-                    <span>Speech</span>
+                    <span>Focus Score</span>
                     <h2>{item.speech}%</h2>
                   </div>
                 </div>

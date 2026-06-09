@@ -400,7 +400,7 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
                     </p>
 
                     <p>
-                      Speech: {item.speech}%
+                      Focus Score: {item.speech}%
                     </p>
 
                     <button className="delete-btn" onClick={() => deleteInterview(item.id)}>
@@ -463,7 +463,7 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
 
             <div className="card">
               <h2>
-                Speech Clarity
+                Focus Score
               </h2>
 
               <h1>

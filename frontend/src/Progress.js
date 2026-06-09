@@ -30,8 +30,7 @@ function Progress({ setCurrentPage }) {
           Math.round(data.reduce((sum, item) =>sum + item.engagement,0) / total);
 
         const speech =
-          Math.round(
-            data.reduce((sum, item) =>sum + item.speech,0) / total);
+          Math.round(data.reduce((sum, item) =>sum + item.speech,0) / total);
 
         setStats({
           total_interviews: total,
