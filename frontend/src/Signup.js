@@ -71,7 +71,7 @@ function Signup({ setIsLogin }) {
     try {
       setLoading(true);
       await axios.post(
-        'https://ai-interview-platform-6ftz.onrender.com/register',
+        'https://ai-interview-platform-production-9ae2.up.railway.app/register',
         formData
       );
 

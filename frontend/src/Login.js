@@ -17,7 +17,7 @@ function Login({ setLoggedIn, setIsLogin }) {
 
     try {
       setLoading(true);
-      const res = await axios.post( 'https://ai-interview-platform-6ftz.onrender.com/login', { email, password});
+      const res = await axios.post( 'https://ai-interview-platform-production-9ae2.up.railway.app/login', { email, password});
       console.log("LOGIN RESPONSE:", res.data);
       
       if (!res.data.access_token) {

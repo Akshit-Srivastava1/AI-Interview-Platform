@@ -7,7 +7,7 @@ function InterviewSessions({ setCurrentPage }) {
     const email = sessionStorage.getItem(
     "userEmail"
     );
-    fetch(`https://ai-interview-platform-6ftz.onrender.com/interview-history/${email}`)
+    fetch(`https://ai-interview-platform-production-9ae2.up.railway.app/interview-history/${email}`)
       .then(res => res.json())
       .then(data => {
         setSessions(data);

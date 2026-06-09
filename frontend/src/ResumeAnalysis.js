@@ -14,7 +14,7 @@ function ResumeAnalysis({ setCurrentPage }) {
 
     try {
       const response = await fetch(
-        "https://ai-interview-platform-6ftz.onrender.com/parse-resume",
+        "https://ai-interview-platform-production-9ae2.up.railway.app/parse-resume",
         {
           method: "POST",
           body: formData

@@ -9,7 +9,7 @@ function MockInterview({ setCurrentPage }) {
   const generateQuestion = async () => {
     try {
       const response = await fetch(
-        "https://ai-interview-platform-6ftz.onrender.com/mock-question"
+        "https://ai-interview-platform-production-9ae2.up.railway.app/mock-question"
       );
       const data = await response.json();
       setQuestion(data.question);
@@ -25,7 +25,7 @@ function MockInterview({ setCurrentPage }) {
     if (!answer.trim()) return;
     try {
       const response = await fetch(
-        "https://ai-interview-platform-6ftz.onrender.com/mock-feedback",
+        "https://ai-interview-platform-production-9ae2.up.railway.app/mock-feedback",
         {
           method: "POST",
 

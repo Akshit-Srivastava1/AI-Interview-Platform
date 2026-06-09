@@ -51,7 +51,7 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
   const generateHRFeedback = async () => {
     try {
       const response = await axios.post(
-        "https://ai-interview-platform-6ftz.onrender.com/generate-hr-feedback",
+        "https://ai-interview-platform-production-9ae2.up.railway.app/generate-hr-feedback",
         {
           confidence: analysis.confidence,
           eye_contact: analysis.eye_contact,
@@ -73,7 +73,7 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
     startCamera();
     fetchHistory();
 
-    socketRef.current = new WebSocket("wss://ai-interview-platform-6ftz.onrender.com/ws/video");
+    socketRef.current = new WebSocket("wss://ai-interview-platform-production-9ae2.up.railway.app/ws/video");
 
     socketRef.current.onopen = () => {
       console.log("WebSocket Connected");
@@ -165,7 +165,7 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
   const saveInterview = async (data) => {
     try {
       await fetch(
-        'https://ai-interview-platform-6ftz.onrender.com/save-interview',
+        'https://ai-interview-platform-production-9ae2.up.railway.app/save-interview',
         {
 
           method: 'POST',
@@ -214,7 +214,7 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
     try {
       const email = sessionStorage.getItem('userEmail');
       const res = await fetch(
-        `https://ai-interview-platform-6ftz.onrender.com/interview-history/${email}`
+        `https://ai-interview-platform-production-9ae2.up.railway.app/interview-history/${email}`
       );
       const data = await res.json();
       setInterviewHistory(data);
@@ -235,7 +235,7 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
   const downloadReport = () => {
     const email = sessionStorage.getItem('userEmail');
     window.open(
-      `https://ai-interview-platform-6ftz.onrender.com/generate-report/${email}`, '_blank'
+      `https://ai-interview-platform-production-9ae2.up.railway.app/generate-report/${email}`, '_blank'
     );
   };
 

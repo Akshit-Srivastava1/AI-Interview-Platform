@@ -5,7 +5,7 @@ function Profile({ setCurrentPage }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    fetch("https://ai-interview-platform-6ftz.onrender.com/profile", {
+    fetch("https://ai-interview-platform-production-9ae2.up.railway.app/profile", {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`
       }

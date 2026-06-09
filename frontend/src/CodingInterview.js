@@ -26,7 +26,7 @@ solve()
 
     try {
       const res = await fetch(
-        "https://ai-interview-platform-6ftz.onrender.com/coding-question"
+        "https://ai-interview-platform-production-9ae2.up.railway.app/coding-question"
       );
 
       const data = await res.json();
