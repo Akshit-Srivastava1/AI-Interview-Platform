@@ -245,6 +245,20 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
     }
   };
 
+  const deleteInterview = async (id) => {
+    try {
+      await fetch(
+        `https://ai-interview-platform-production-9ae2.up.railway.app/delete-interview/${id}`,
+        {
+          method: "DELETE"
+        }
+      );
+      fetchHistory();
+    } catch (err) {
+      console.log(err);
+      alert("Unable to delete interview");
+    }
+  };
   // LOGOUT
 
   const logout = () => {
@@ -393,6 +407,9 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
                       Speech: {item.speech}%
                     </p>
 
+                    <button className="delete-btn" onClick={() => deleteInterview(item.id)}>
+                      Delete Interview
+                    </button>
                   </div>
                 ))
               }

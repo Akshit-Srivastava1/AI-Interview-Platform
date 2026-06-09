@@ -1121,3 +1121,27 @@ async def generate_ai_feedback(data: InterviewData):
         return {
             "feedback": f"ERROR: {str(e)}"
         }
+        
+@app.delete("/delete-interview/{interview_id}")
+def delete_interview(
+    interview_id: int,
+    db: Session = Depends(get_db)
+):
+
+    interview = db.query(
+        InterviewHistory
+    ).filter(
+        InterviewHistory.id == interview_id
+    ).first()
+
+    if not interview:
+        return {
+            "error": "Interview not found"
+        }
+
+    db.delete(interview)
+    db.commit()
+
+    return {
+        "message": "Interview deleted successfully"
+    }
