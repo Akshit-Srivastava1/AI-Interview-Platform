@@ -383,7 +383,7 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
                   <div key={index} className="history-card">
                     <h3>
                       {
-                        new Date(item.created_at).toLocaleDateString()
+                        new Date(item.created_at).toLocaleDateString("en-GB", {timeZone: "Asia/Kolkata"})
                       }
                     </h3>
 
