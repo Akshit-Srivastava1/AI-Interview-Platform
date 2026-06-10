@@ -55,7 +55,9 @@ def analyze_face(frame):
             "eye_contact": 0,
             "confidence": 0,
             "engagement": 0,
-            "speech": 0
+            "speech": 0,
+            "face_visibility": 0,
+            "fidget": 0
         }
 
     rgb_frame = cv2.cvtColor(
@@ -104,9 +106,11 @@ def analyze_face(frame):
             movement = abs(face_center_x - previous_nose_x)
             if movement > 0.05:
                 fidget_score += 5
+            else:
+                fidget_score -= 2
 
         previous_nose_x = face_center_x
-        fidget_score = min(fidget_score,100)
+        fidget_score = max(0, min(fidget_score, 100))
         fidget_level = max(0,100 - fidget_score)
 
         if avg_eye_gap <= 0.008:
@@ -120,7 +124,9 @@ def analyze_face(frame):
                 "eye_contact": 0,
                 "confidence": 0,
                 "engagement": 0,
-                "speech": 0
+                "speech": 0,
+                "face_visibility": 0,
+                "fidget": 0
             }
 
         elif avg_eye_gap <= 0.015:
@@ -189,35 +195,21 @@ def analyze_face(frame):
 
         face_visibility_score = 100
 
-        if (
-            face_center_x < 0.35
-            or face_center_x > 0.65
-        ):
+        if (face_center_x < 0.35 or face_center_x > 0.65):
             face_visibility_score = 50
 
-        target_engagement = int(
-            (target_eye_contact * 0.5)
-            + (head_position_score * 0.3)
-            + (face_visibility_score * 0.2)
-        )
-
-        target_engagement = max(
-            0,
-            min(100, target_engagement)
-        )
-
-        target_speech = random.randint(
-            70,
-            95
-        )
+        target_engagement = int((target_eye_contact * 0.5) + (head_position_score * 0.3) + (face_visibility_score * 0.2))
+        target_engagement = max(0, min(100, target_engagement))
+        target_speech = random.randint(70, 95)
 
     else:
-
         return {
             "eye_contact": 0,
             "confidence": 0,
             "engagement": 0,
-            "speech": 0
+            "speech": 0,
+            "face_visibility": 0,
+            "fidget": 0
         }
 
     current_eye_contact = smooth_change(

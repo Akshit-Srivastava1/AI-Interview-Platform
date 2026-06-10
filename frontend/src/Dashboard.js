@@ -474,7 +474,8 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
               <h1>
                 {analysis.speech}%
               </h1>
-
+            </div>
+            
             <div className="card">
               <h2>
                 Face Visibility
@@ -494,7 +495,6 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
                 {analysis.fidget}%
               </h1>
             </div>
-          </div>
         </div>
       </div>
         {/* GRAPH */}
