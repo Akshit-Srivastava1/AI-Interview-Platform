@@ -92,16 +92,6 @@ AI Feedback Generation
 | Face Visibility | Tracks face presence in frame     |
 | Fidget Control  | Detects excessive head movement   |
 
-## Screenshots
-
-Add screenshots of:
-
-* Dashboard
-* Live Interview Analysis
-* Progress Analytics
-* AI Feedback
-* Interview History
-
 ## Installation
 
 ### Backend
