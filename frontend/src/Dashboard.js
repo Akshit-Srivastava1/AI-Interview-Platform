@@ -46,6 +46,8 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
     confidence: 0,
     engagement: 0,
     speech: 0,
+    face_visibility: 0,
+    fidget: 0,
   });
 
   const generateHRFeedback = async () => {
@@ -86,11 +88,14 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
     socketRef.current.onmessage = async (event) => {
       const data = JSON.parse(event.data);
       console.log("LIVE DATA:", data);
+
       setAnalysis({
         eye_contact: data.eye_contact,
         confidence: data.confidence,
         engagement: data.engagement,
         speech: data.speech,
+        face_visibility: data.face_visibility,
+        fidget: data.fidget,
       });
 
       // AUTO SAVE INTERVIEW
@@ -470,9 +475,28 @@ function Dashboard({ setLoggedIn, setCurrentPage }) {
                 {analysis.speech}%
               </h1>
 
+            <div className="card">
+              <h2>
+                Face Visibility
+              </h2>
+
+              <h1>
+                {analysis.face_visibility}%
+              </h1>
+            </div>
+
+            <div className="card">
+              <h2>
+                Fidget Control
+              </h2>
+
+              <h1>
+                {analysis.fidget}%
+              </h1>
             </div>
           </div>
         </div>
+      </div>
         {/* GRAPH */}
 
         <div className="analytics-section">

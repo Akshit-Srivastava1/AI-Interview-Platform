@@ -1081,6 +1081,8 @@ async def websocket_video(
                 "confidence": analysis["confidence"],
                 "engagement": analysis["engagement"],
                 "speech":  analysis["speech"],
+                "face_visibility": analysis["face_visibility"],
+                "fidget": analysis["fidget"]
             })
 
         except Exception as e:
