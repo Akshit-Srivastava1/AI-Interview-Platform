@@ -116,9 +116,9 @@ def analyze_face(frame):
             else:
                 fidget_score -= 1
 
-            previous_nose_x = face_center_x
-            fidget_score = max(0, min(fidget_score, 50))
-            fidget_level = int(max(0, 100 - (fidget_score * 2)))
+        previous_nose_x = face_center_x
+        fidget_score = max(0, min(fidget_score, 50))
+        fidget_level = int(max(0, 100 - (fidget_score * 2)))
         if avg_eye_gap <= 0.008:
 
             current_eye_contact = 0
