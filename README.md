@@ -113,7 +113,7 @@ npm start
 ## Live Demo
 
 Frontend:
-https://ai-interview-platform-tawny.vercel.app
+https://ai-interview-platform-pink-eight.vercel.app
 
 ## Author
 
